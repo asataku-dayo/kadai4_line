@@ -1,0 +1,161 @@
+//マップ型変数breakpointsを定義
+$breakpoints: (
+  // キー：値
+  "sp": "screen and (max-width: 767px)",
+  // スマホ用
+  "tab": "screen and (min-width: 768px)" // タブレット・PC用
+) !default;
+
+// メディアクエリ用のmixinを定義。デフォ値はmd
+@mixin mq($breakpoint: sp) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+
+$cBlack: black;
+$cWhite: white;
+
+body {
+  font-family: "Noto Sans JP", sans-serif;
+  margin: 0;
+}
+
+header {
+  // <uniquifier>: Use a unique and descriptive class name
+  // <weight>: Use a value from 100 to 900
+
+  font-family: "Noto Sans JP", sans-serif;
+
+  & .header-main {
+    width: 95%;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    & > .header-navs > ul {
+      display: flex;
+      padding-top: 40px;
+
+      & > .text-nav > a {
+        @include mq(sp) {
+          display: none;
+        }
+      }
+      & > .header-nav {
+        padding-left: 15px;
+        & > .mobile-menu-icon {
+          background-color: transparent;
+          border: none;
+          outline: none !important;
+          cursor: pointer;
+
+          & > span {
+            background-color: $cBlack;
+            width: 35px;
+            height: 2px;
+            display: block;
+            margin-bottom: 9px;
+            transition: transform 0.7s;
+
+            &:last-child {
+              margin-bottom: 0px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.menu-open {
+  background-color: $cBlack;
+  position: fixed;
+  z-index: 5;
+  width: 100%;
+
+  & header > .header-main {
+    & > .header-navs > ul > .header-nav {
+      &.text-nav > a {
+        display: none;
+      }
+
+      & > .mobile-menu-icon {
+        & > span {
+          background-color: $cWhite;
+
+          &:nth-child(1) {
+            transform: translateY(11px) rotate(135deg);
+          }
+          &:nth-child(2) {
+            transform: translateX(-18px) scaleX(0);
+          }
+          &:nth-child(3) {
+            transform: translateY(-11px) rotate(-135deg);
+          }
+        }
+      }
+    }
+  }
+
+  #container {
+    display: none;
+  }
+  #modal {
+    & > ul {
+      & .modal-list > a {
+        display: block;
+        text-align: center;
+      }
+    }
+  }
+}
+
+#modal {
+  text-align: center;
+  z-index: 5;
+  & > ul {
+    & .modal-list > a {
+      color: white;
+      line-height: 4;
+      display: none;
+    }
+  }
+}
+
+#container {
+  height: 85vh;
+  background-color: teal;
+  position: relative;
+}
+
+.animate-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: $cWhite;
+  font-size: 1.2rem;
+
+  &.inview {
+    & .char {
+      display: inline-block;
+      animation: kf-animete-chars 0.8s ease both;
+      @for $i from 1 through 12 {
+        &:nth-child(#{$i}) {
+          animation-delay: $i * 0.04s;
+        }
+      }
+    }
+  }
+}
+
+@keyframes kf-animete-chars {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
