@@ -48,8 +48,11 @@ header .header-main > .header-navs > ul > .header-nav > .mobile-menu-icon > span
   z-index: 5;
   width: 100%;
 }
+.menu-open header > .header-main > .header-icon {
+  visibility: hidden;
+}
 .menu-open header > .header-main > .header-navs > ul > .header-nav.text-nav > a {
-  display: none;
+  visibility: hidden;
 }
 .menu-open header > .header-main > .header-navs > ul > .header-nav > .mobile-menu-icon > span {
   background-color: white;

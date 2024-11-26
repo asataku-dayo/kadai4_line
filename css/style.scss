@@ -73,9 +73,13 @@ header {
   width: 100%;
 
   & header > .header-main {
+    & > .header-icon {
+      visibility: hidden;
+    }
+
     & > .header-navs > ul > .header-nav {
       &.text-nav > a {
-        display: none;
+        visibility: hidden;
       }
 
       & > .mobile-menu-icon {
