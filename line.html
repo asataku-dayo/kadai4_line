@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Line風アプリ</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Arrows:wght@400..700&family=Noto+Sans+JP:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/style2.css" />
   </head>
@@ -11,14 +15,22 @@
     <div class="title">
       <h2>Line風アプリ</h2>
     </div>
-    <div id="output"></div>
-
-    <div>
-      <input type="text" id="uname" placeholder="" />
+    <div class="main">
+      <div class="output left">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
     </div>
-    <div>
-      <button id="userA">送信user1</button>
-      <button id="userB">送信user2</button>
+    <div class="form">
+      <div class="text-write">
+        <input type="text" id="uname1" placeholder="P1テキストを入力してね！" />
+        <input type="text" id="uname2" placeholder="P2テキストを入力してね！" />
+      </div>
+      <div class="send-btns">
+        <button id="userA">送信P1</button>
+        <button id="userB">送信P2</button>
+      </div>
+      <div class="delete-btns">
+      <button id="delete1">削除P1</button>
+      <button id="delete2">削除P2</button>
+      </div>
     </div>
   </body>
 </html>
