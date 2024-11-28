@@ -16,7 +16,7 @@
       <h2>Line風アプリ</h2>
     </div>
     <div class="main">
-      <div class="output left">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+      <div class="output-a"></div>
     </div>
     <div class="form">
       <div class="text-write">
@@ -27,10 +27,86 @@
         <button id="userA">送信P1</button>
         <button id="userB">送信P2</button>
       </div>
-      <div class="delete-btns">
-      <button id="delete1">削除P1</button>
-      <button id="delete2">削除P2</button>
-      </div>
+      <!-- <div class="delete-btns">
+        <button id="delete1">削除P1</button>
+        <button id="delete2">削除P2</button>
+      </div> -->
     </div>
+
+    <!-- firebase -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        push,
+        set,
+        onChildAdded,
+        remove,
+        onChildRemoved,
+      } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-database.js";
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+       
+      };
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app); //RealtimeDBに接続
+      const dbRef = ref(db, "chat"); //RealtimeDB内の"chat"を使う
+
+      //データ登録(Click)
+      $("#userA").on("click", function () {
+        const text1 = document.querySelector("#uname1");
+        if (text1.value != "") {
+          const msg = {
+            uname: "left",
+            text: $("#uname1").val(),
+          };
+          const newPostRef = push(dbRef);
+          set(newPostRef, msg);
+
+          $("#uname1").val("");
+        }
+      });
+
+      $("#userB").on("click", function () {
+        const text2 = document.querySelector("#uname2");
+        if (text2.value != "") {
+          const msg = {
+            uname: "right",
+            text: $("#uname2").val(),
+          };
+          const newPostRef = push(dbRef);
+          set(newPostRef, msg);
+
+          $("#uname2").val("");
+        }
+      });
+
+      //データ登録(Enter)
+
+      //最初にデータ取得＆onSnapshotでリアルタイムにデータを取得
+      onChildAdded(dbRef, function (data) {
+        const msg = data.val();
+        const key = data.key;
+
+        if (msg.uname === "left") {
+          let h = `
+        <div class="output left">
+            <p>${msg.text}</p>
+          </div>
+        `;
+          $(".output-a").append(h);
+        } else if (msg.uname === "right") {
+          let h = `
+        <div class="output right">
+            <p>${msg.text}</p>
+          </div>
+        `;
+          $(".output-a").append(h);
+        }
+      });
+    </script>
   </body>
 </html>
